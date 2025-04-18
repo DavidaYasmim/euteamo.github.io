@@ -7,14 +7,14 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #b22222, #ff6f6f);
+      background: linear-gradient(to right, #cc2b5e, #ff5858);
       color: white;
       text-align: center;
       padding-top: 100px;
     }
 
     .container {
-      max-width: 600px;
+      max-width: 700px;
       margin: auto;
     }
 
@@ -26,15 +26,16 @@
       border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s ease;
-      color: black;
     }
 
     #sim {
       background-color: #4da6ff;
+      color: black;
     }
 
     #nao {
-      background-color: #ff99cc;
+      background-color: #ff80bf;
+      color: black;
     }
 
     .hidden {
@@ -45,18 +46,20 @@
       margin-top: 40px;
       font-size: 20px;
       line-height: 1.5;
+      font-weight: 500;
     }
 
-    #carinha {
-      font-size: 24px;
-      margin-top: 10px;
-      color: #fff;
+    img {
+      margin-top: 25px;
+      max-width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      animation: fadeIn 1s ease-in-out;
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -67,41 +70,35 @@
       <button id="sim">Sim</button>
       <button id="nao">Não</button>
     </div>
-    <div id="carinha" class="hidden">:c</div>
-    <div id="poema" class="hidden">
-      <p>
-        Teu sorriso ilumina meu dia<br>
-        Teu jeito é poesia em forma de vida<br>
-        Se for comigo, quero te fazer feliz<br>
-        Aceita ser minha namorada?
-      </p>
-    </div>
+    <div id="poema" class="hidden"></div>
   </div>
 
   <script>
+    let simUsado = false;
+    let naoClicks = 0;
+
     const btnSim = document.getElementById("sim");
     const btnNao = document.getElementById("nao");
     const poema = document.getElementById("poema");
-    const carinha = document.getElementById("carinha");
-
-    let simSize = 18;
-    let naoClicks = 0;
-    let simUsado = false;
 
     btnNao.addEventListener("click", () => {
-      simSize += 10;
-      btnSim.style.fontSize = simSize + "px";
       naoClicks++;
+      btnSim.style.fontSize = parseInt(window.getComputedStyle(btnSim).fontSize) + 5 + "px";
 
-      // Mostra a carinha triste
-      carinha.classList.remove("hidden");
+      const carinha = document.createElement("span");
+      carinha.textContent = " :c";
+      carinha.style.display = "block";
+      carinha.style.marginTop = "10px";
+      carinha.style.fontSize = "18px";
+      carinha.style.opacity = "1";
+      poema.appendChild(carinha);
+
       setTimeout(() => {
-        carinha.classList.add("hidden");
+        carinha.remove();
       }, 2000);
 
       if (naoClicks >= 3) {
         btnNao.style.display = "none";
-        btnSim.style.animation = "pulse 1.5s infinite";
       }
     });
 
@@ -110,13 +107,14 @@
       simUsado = true;
 
       poema.classList.remove("hidden");
-
-      const frase = document.createElement("p");
-      frase.textContent = "Eu já sabia que você ia aceitar. Eu te amo e quero passar o resto dos meus dias com você.";
-      frase.style.marginTop = "30px";
-      frase.style.fontSize = "22px";
-      frase.style.fontWeight = "bold";
-      poema.appendChild(frase);
+      poema.innerHTML = `
+        <p>
+          Olhe meu neném, já passamos por muita coisa, eu queria te pedir em namoro presencial mas infelizmente não vou conseguir, 
+          mas eu fiz meu esforço pra criar um site e conseguir programar ele, esse é o meu primeiro projeto e tô orgulhoso dele ser para você, 
+          eu te amo de mais meu amor &lt;3, eu prometo que eu faço outro melhor quando eu aprender.
+        </p>
+        <img src="yasmin.jpg" alt="Yasmin linda" />
+      `;
     });
   </script>
 </body>
