@@ -1,20 +1,43 @@
-const btnSim = document.getElementById("sim");
-const btnNao = document.getElementById("nao");
-const poema = document.getElementById("poema");
-const musica = document.getElementById("musica");
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #ff6f91, #ff9671);
+  color: white;
+  text-align: center;
+  padding-top: 100px;
+}
 
-let simSize = 18;
+.container {
+  max-width: 600px;
+  margin: auto;
+}
 
-btnNao.addEventListener("mouseover", () => {
-  simSize += 5;
-  btnSim.style.fontSize = simSize + "px";
+button {
+  font-size: 18px;
+  padding: 15px 30px;
+  margin: 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-  if (simSize >= 80) {
-    btnNao.style.display = "none";
-  }
-});
+#sim {
+  background-color: #ffffff;
+  color: #ff6f91;
+}
 
-btnSim.addEventListener("click", () => {
-  poema.classList.remove("hidden");
-  musica.play();
-});
+#nao {
+  background-color: #ffffff;
+  color: #888;
+  position: relative;
+}
+
+.hidden {
+  display: none;
+}
+
+#poema {
+  margin-top: 40px;
+  font-size: 20px;
+  line-height: 1.5;
+}
