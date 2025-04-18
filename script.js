@@ -1,43 +1,29 @@
-body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #ff6f91, #ff9671);
-  color: white;
-  text-align: center;
-  padding-top: 100px;
-}
+const btnSim = document.getElementById("sim");
+const btnNao = document.getElementById("nao");
+const poema = document.getElementById("poema");
+const musica = document.getElementById("musica");
 
-.container {
-  max-width: 600px;
-  margin: auto;
-}
+let simSize = 18;
+let naoClicks = 0;
 
-button {
-  font-size: 18px;
-  padding: 15px 30px;
-  margin: 20px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+btnNao.addEventListener("click", () => {
+  simSize += 10;
+  btnSim.style.fontSize = simSize + "px";
+  naoClicks++;
 
-#sim {
-  background-color: #ffffff;
-  color: #ff6f91;
-}
+  if (naoClicks >= 3) {
+    btnNao.style.display = "none";
+  }
+});
 
-#nao {
-  background-color: #ffffff;
-  color: #888;
-  position: relative;
-}
+btnSim.addEventListener("click", () => {
+  poema.classList.remove("hidden");
+  musica.play();
 
-.hidden {
-  display: none;
-}
-
-#poema {
-  margin-top: 40px;
-  font-size: 20px;
-  line-height: 1.5;
-}
+  const frase = document.createElement("p");
+  frase.textContent = "Eu já sabia que você ia aceitar. Eu te amo e quero passar o resto dos meus dias com você.";
+  frase.style.marginTop = "30px";
+  frase.style.fontSize = "22px";
+  frase.style.fontWeight = "bold";
+  poema.appendChild(frase);
+});
