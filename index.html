@@ -4,7 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Quer namorar comigo?</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #b22222, #ff6f6f);
+      color: white;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 15px 30px;
+      margin: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: black;
+    }
+
+    #sim {
+      background-color: #4da6ff;
+    }
+
+    #nao {
+      background-color: #ff99cc;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #poema {
+      margin-top: 40px;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    #carinha {
+      font-size: 24px;
+      margin-top: 10px;
+      color: #fff;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -13,6 +67,7 @@
       <button id="sim">Sim</button>
       <button id="nao">Não</button>
     </div>
+    <div id="carinha" class="hidden">:c</div>
     <div id="poema" class="hidden">
       <p>
         Teu sorriso ilumina meu dia<br>
@@ -22,7 +77,47 @@
       </p>
     </div>
   </div>
-  <audio id="musica" src="tv-girl-romantic.mp3"></audio>
-  <script src="script.js"></script>
+
+  <script>
+    const btnSim = document.getElementById("sim");
+    const btnNao = document.getElementById("nao");
+    const poema = document.getElementById("poema");
+    const carinha = document.getElementById("carinha");
+
+    let simSize = 18;
+    let naoClicks = 0;
+    let simUsado = false;
+
+    btnNao.addEventListener("click", () => {
+      simSize += 10;
+      btnSim.style.fontSize = simSize + "px";
+      naoClicks++;
+
+      // Mostra a carinha triste
+      carinha.classList.remove("hidden");
+      setTimeout(() => {
+        carinha.classList.add("hidden");
+      }, 2000);
+
+      if (naoClicks >= 3) {
+        btnNao.style.display = "none";
+        btnSim.style.animation = "pulse 1.5s infinite";
+      }
+    });
+
+    btnSim.addEventListener("click", () => {
+      if (simUsado) return;
+      simUsado = true;
+
+      poema.classList.remove("hidden");
+
+      const frase = document.createElement("p");
+      frase.textContent = "Eu já sabia que você ia aceitar. Eu te amo e quero passar o resto dos meus dias com você.";
+      frase.style.marginTop = "30px";
+      frase.style.fontSize = "22px";
+      frase.style.fontWeight = "bold";
+      poema.appendChild(frase);
+    });
+  </script>
 </body>
 </html>
